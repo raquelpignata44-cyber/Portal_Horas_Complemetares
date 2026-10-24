@@ -4,17 +4,9 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.pagina-login {
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
+header {
     text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
+    padding: 30px 20px;
 }
 
 .logo {
@@ -26,31 +18,11 @@ h1 {
     color: #173c65;
 }
 
+main {
+    text-align: center;
+    padding: 20px;
+}
+
 p {
     color: #64748b;
-}
-
-.caixa-login {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    width: 450px;
-    max-width: 100%;
-    box-sizing: border-box;
-    margin-top: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.caixa-login h2 {
-    color: #173c65;
-    font-size: 20px;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    box-sizing: border-box;
-    border: 1px solid #cccccc;
-    border-radius: 6px;
 }
