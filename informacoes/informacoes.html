@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifly - Portal de Horas Complementares</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="informacoes.css">
+</head>
+
+<body>
+
+    <main>
+        <h2>Regras e Informações do Curso</h2>
+        
+        <!-- Onde o usuário escolhe o curso -->
+        <div class="grupo-selecao">
+            <label for="select-curso">Selecione o seu curso:</label>
+            <select id="select-curso">
+                <option value="Sistemas de Informação">Sistemas de Informação</option>
+                <option value="Ciência da Computação">Ciência da Computação</option>
+                <option value="Engenharia de Software">Engenharia de Software</option>
+            </select>
+        </div>
+
+        <!-- Onde as informações calculadas vão aparecer na tela -->
+        <div id="resultado-regras" class="card-regras">
+            <!-- As informações do curso aparecerão aqui via JavaScript -->
+        </div>
+    </main>
+
+    <script src="../js/dados.js"></script>
+    <script src="informacoes.js"></script>
+</body>
+</html>
