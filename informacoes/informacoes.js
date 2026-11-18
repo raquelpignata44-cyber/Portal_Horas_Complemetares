@@ -1,29 +1,80 @@
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("A página de informações foi carregada com sucesso!");
-});
-// document representa toda a pagina html e assim que carregar a pagina, executa o que contem na funcao
-// a funcao é apenas para teste de funcionamento
+// Pagina de regras e informacoes do curso.
+// Usa buscarCurso, calcularMinimoPorCategoria, tiposAtividade e limitesHoras de dados.js
 
-// 1. Encontramos os elementos HTML pelo ID que criamos
-    const selectCurso = document.getElementById("select-curso");
-    const containerResultado = document.getElementById("resultado-regras");
+const selectCurso = document.getElementById("select-curso");
+const campoBusca = document.getElementById("busca-tipo");
+const containerResultado = document.getElementById("resultado-regras");
 
-    // 2. Criamos uma função para atualizar a tela com base no curso escolhido
-    function exibirRegrasDoCurso() {
-        const nomeCursoSelecionado = selectCurso.value;
+const iconesCategoria = {
+    "Ensino": "📚",
+    "Pesquisa": "🔬",
+    "Extensão": "🤝"
+};
 
-        // 3. Chamamos a função buscarCurso que já existe no dados.js
-        const dadosDoCurso = buscarCurso(nomeCursoSelecionado);
+// Tira acentos e maiusculas para a busca achar "extensao" ao digitar "Extensão"
+function normalizar(texto) {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
 
-        // 4. Exibimos temporariamente no HTML para testar
-        containerResultado.innerHTML = `
-            <h3>Curso: ${dadosDoCurso.curso}</h3>
-            <p>Total de horas exigidas: <strong>${dadosDoCurso.horas} horas</strong></p>
-        `;
+function montarCategoria(categoria, termo, minimo) {
+    const tipos = tiposAtividade[categoria].filter(function (tipo) {
+        return normalizar(tipo).includes(termo);
+    });
+
+    if (tipos.length === 0) {
+        return "";
     }
 
-    // 5. Executamos a função assim que a página abre para mostrar o curso padrão
-    exibirRegrasDoCurso();
+    const itens = tipos.map(function (tipo) {
+        return `<li><span>${tipo}</span><span class="limite">até ${limitesHoras[categoria][tipo]} h</span></li>`;
+    }).join("");
 
-    // 6. Ficamos "escutando" se o usuário mudar a opção do select
-    selectCurso.addEventListener("change", exibirRegrasDoCurso);
+    // Se o aluno esta buscando algo, ja abre a categoria
+    return `
+        <details class="categoria glass3d" ${termo ? "open" : ""}>
+            <summary>
+                <span class="categoria-icone">${iconesCategoria[categoria]}</span>
+                <span class="categoria-texto">
+                    <strong>${categoria}</strong>
+                    <small>mínimo de ${minimo} h nesta categoria</small>
+                </span>
+            </summary>
+            <ul class="lista-tipos">${itens}</ul>
+            <p class="nota">O limite vale para cada atividade enviada.</p>
+        </details>`;
+}
+
+function exibirRegrasDoCurso() {
+    const curso = buscarCurso(selectCurso.value);
+
+    if (!curso) {
+        containerResultado.innerHTML = `<p class="vazio">Curso não encontrado. Escolha outro na lista.</p>`;
+        return;
+    }
+
+    const minimo = calcularMinimoPorCategoria(curso.curso);
+    const termo = normalizar(campoBusca.value);
+
+    const categorias = Object.keys(tiposAtividade).map(function (categoria) {
+        return montarCategoria(categoria, termo, minimo);
+    }).join("");
+
+    containerResultado.innerHTML = `
+        <div class="resumo">
+            <div class="destaque glass3d">
+                <span class="numero">${curso.horas}</span>
+                <span class="rotulo">horas complementares exigidas em ${curso.curso}</span>
+            </div>
+            <div class="destaque glass3d">
+                <span class="numero">${minimo}</span>
+                <span class="rotulo">horas mínimas em cada categoria: Ensino, Pesquisa e Extensão</span>
+            </div>
+        </div>
+        <div class="categorias">
+            ${categorias || `<p class="vazio">Nenhum tipo de atividade encontrado para essa busca.</p>`}
+        </div>`;
+}
+
+exibirRegrasDoCurso();
+selectCurso.addEventListener("change", exibirRegrasDoCurso);
+campoBusca.addEventListener("input", exibirRegrasDoCurso);

@@ -4,29 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certifly - Portal de Horas Complementares</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="informacoes.css">
 </head>
 
 <body>
+    <!-- Fundo colorido: o vidro precisa de cor atrás dele para aparecer -->
+    <div class="fundo" aria-hidden="true">
+        <span class="orbe orbe-1"></span>
+        <span class="orbe orbe-2"></span>
+        <span class="orbe orbe-3"></span>
+    </div>
 
-    <main>
-        <h2>Regras e Informações do Curso</h2>
-        
-        <!-- Onde o usuário escolhe o curso -->
-        <div class="grupo-selecao">
-            <label for="select-curso">Selecione o seu curso:</label>
-            <select id="select-curso">
-                <option value="Sistemas de Informação">Sistemas de Informação</option>
-                <option value="Ciência da Computação">Ciência da Computação</option>
-                <option value="Engenharia de Software">Engenharia de Software</option>
-            </select>
-        </div>
+    <main class="pagina">
+        <header class="topo">
+            <h1>Regras e informações do curso</h1>
+            <p>Veja quantas horas complementares seu curso exige e quanto cada tipo de atividade pode valer.</p>
+        </header>
 
-        <!-- Onde as informações calculadas vão aparecer na tela -->
-        <div id="resultado-regras" class="card-regras">
-            <!-- As informações do curso aparecerão aqui via JavaScript -->
-        </div>
+        <section class="painel glass3d" aria-label="Filtros">
+            <div class="grupo-selecao">
+                <label for="select-curso">Selecione o seu curso</label>
+                <select id="select-curso">
+                    <option value="Sistemas de Informação">Sistemas de Informação</option>
+                    <option value="Ciência da Computação">Ciência da Computação</option>
+                    <option value="Engenharia de Software">Engenharia de Software</option>
+                </select>
+            </div>
+
+            <div class="grupo-selecao">
+                <label for="busca-tipo">Buscar tipo de atividade</label>
+                <input type="search" id="busca-tipo" placeholder="Ex.: monitoria, estágio, patentes">
+            </div>
+        </section>
+
+        <!-- O JavaScript preenche esta área -->
+        <div id="resultado-regras" class="card-regras" aria-live="polite"></div>
     </main>
 
     <script src="../js/dados.js"></script>
