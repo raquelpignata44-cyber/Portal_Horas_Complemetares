@@ -1,0 +1,291 @@
+/* ---------- Variáveis ---------- */
+:root {
+    --marinho: #173c65;
+    --azul: #2f7de1;
+    --agua: #4fd1c5;
+    --lilas: #9b8cf5;
+    --fundo: #e9eef5;
+    --texto: #173c65;
+    --texto-suave: #3f5a7a;
+}
+
+/* ---------- Base (sobrescreve o style.css so nesta pagina) ---------- */
+body {
+    min-height: 100vh;
+    background: var(--fundo);
+    font-family: "Figtree", Arial, sans-serif;
+    color: var(--texto);
+}
+
+main.pagina {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+    text-align: left;
+}
+
+p { color: var(--texto-suave); }
+
+/* ---------- Fundo com orbes de cor ---------- */
+.fundo {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.orbe {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: .75;
+    animation: flutuar 18s ease-in-out infinite alternate;
+}
+
+.orbe-1 { width: 420px; height: 420px; background: var(--azul);  top: -80px;  left: -100px; }
+.orbe-2 { width: 380px; height: 380px; background: var(--agua);  top: 35%;    right: -120px; animation-delay: -6s; }
+.orbe-3 { width: 340px; height: 340px; background: var(--lilas); bottom: -90px; left: 25%;   animation-delay: -12s; }
+
+@keyframes flutuar {
+    to { transform: translate(60px, 40px) scale(1.12); }
+}
+
+/* ---------- Glass 3D ---------- */
+.glass3d {
+  --filter-glass3d: blur(32px) brightness(0.85) saturate(2.5);
+  --color-glass3d: hsl(200 70% 12% / 0.3); /* era 0.2: mais escuro para o texto claro ficar legível */
+  --noise-glass3d: url("https://www.transparenttextures.com/patterns/egg-shell.png");
+
+  position: relative;
+  z-index: 4;
+  border-radius: 26px;
+  box-shadow:
+    0 0 0.75px hsl(205 20% 10% / 0.2),
+    0.7px 0.8px 1.2px -0.4px hsl(205 20% 10% / 0.1),
+    1.3px 1.5px 2.2px -0.8px hsl(205 20% 10% / 0.1),
+    2.3px 2.6px 3.9px -1.2px hsl(205 20% 10% / 0.1),
+    3.9px 4.4px 6.6px -1.7px hsl(205 20% 10% / 0.1),
+    6.5px 7.2px 10.9px -2.1px hsl(205 20% 10% / 0.1),
+    8px 9px 14px -2.5px hsl(205 20% 10% / 0.2);
+}
+
+.glass3d::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 3;
+
+  -webkit-backdrop-filter: var(--filter-glass3d);
+  backdrop-filter: var(--filter-glass3d);
+  background-color: var(--color-glass3d);
+  background-image: var(--noise-glass3d);
+  background-size: 100px;
+  background-repeat: repeat;
+}
+
+.glass3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 5;
+
+  box-shadow:
+    inset 2px 2px 1px -3px hsl(205 20% 90% / 0.8),
+    inset 4px 4px 2px -6px hsl(205 20% 90% / 0.3),
+    inset 1.5px 1.5px 1.5px -0.75px hsl(205 20% 90% / 0.15),
+    inset 1.5px 1.5px 0.25px hsl(205 20% 90% / 0.03),
+    inset 0 0 0.25px 0.5px hsl(205 20% 90% / 0.03);
+}
+
+.glass3d > * {
+  position: relative;
+  z-index: 6;
+}
+
+/* Texto claro sobre o vidro escuro */
+.glass3d,
+.glass3d .numero,
+.glass3d .categoria-texto strong,
+.glass3d .grupo-selecao label { color: #fff; }
+
+.glass3d p,
+.glass3d .rotulo,
+.glass3d .categoria-texto small { color: rgba(255, 255, 255, .82); }
+
+.glass3d .categoria-icone { background: rgba(255, 255, 255, .16); }
+.glass3d .lista-tipos li { border-top-color: rgba(255, 255, 255, .18); }
+.glass3d .categoria summary::after { border-color: #fff; }
+.glass3d .limite { color: #fff; background: rgba(255, 255, 255, .18); }
+
+/* ---------- Topo ---------- */
+.topo {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.topo h1 {
+    margin: 0 0 10px;
+    font-family: "Bricolage Grotesque", Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3.1rem);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+}
+
+.topo p {
+    margin: 0 auto; /* o "auto" centraliza o bloco limitado pelo max-width */
+    max-width: 52ch;
+    font-size: 1.05rem;
+}
+
+/* ---------- Painel de filtros ---------- */
+.painel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding: 22px;
+    margin-bottom: 22px;
+}
+
+.grupo-selecao { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.grupo-selecao label { font-weight: 600; font-size: .95rem; }
+
+select, input[type="search"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 16px;
+    font: inherit;
+    color: var(--texto);
+    background: rgba(255, 255, 255, .55);
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 16px;
+    outline: none;
+    transition: box-shadow .2s, background .2s;
+}
+
+input::placeholder { color: #6b84a3; }
+
+select:focus-visible, input[type="search"]:focus-visible {
+    background: rgba(255, 255, 255, .8);
+    box-shadow: 0 0 0 3px rgba(47, 125, 225, .45);
+}
+
+/* ---------- Resumo ---------- */
+.resumo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.destaque {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 24px;
+}
+
+.numero {
+    font-family: "Bricolage Grotesque", Arial, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 1;
+    color: var(--marinho);
+}
+
+.rotulo { color: var(--texto-suave); font-weight: 500; line-height: 1.35; }
+
+/* ---------- Categorias (sanfona) ---------- */
+.categorias { display: grid; gap: 14px; }
+
+.categoria { padding: 0; overflow: hidden; }
+
+.categoria summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.categoria summary::-webkit-details-marker { display: none; }
+
+/* Setinha que gira ao abrir */
+.categoria summary::after {
+    content: "";
+    margin-left: auto;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--marinho);
+    border-bottom: 2px solid var(--marinho);
+    transform: rotate(45deg);
+    transition: transform .25s;
+}
+
+.categoria[open] summary::after { transform: rotate(-135deg); }
+
+.categoria summary:focus-visible { outline: 3px solid rgba(47, 125, 225, .6); outline-offset: -3px; border-radius: 26px; }
+
+.categoria-icone {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, .5);
+    border-radius: 16px;
+}
+
+.categoria-texto { display: flex; flex-direction: column; }
+.categoria-texto strong { font-family: "Bricolage Grotesque", Arial, sans-serif; font-size: 1.25rem; }
+.categoria-texto small { color: var(--texto-suave); font-size: .9rem; }
+
+.lista-tipos { list-style: none; margin: 0; padding: 0 22px; }
+
+.lista-tipos li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 13px 0;
+    border-top: 1px solid rgba(23, 60, 101, .12);
+}
+
+.limite {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--marinho);
+    background: rgba(255, 255, 255, .6);
+    border-radius: 999px;
+}
+
+.nota { margin: 0; padding: 12px 22px 18px; font-size: .88rem; }
+
+.vazio { padding: 24px; text-align: center; }
+
+/* ---------- Celular ---------- */
+@media (max-width: 640px) {
+    .painel, .resumo { grid-template-columns: 1fr; }
+    main.pagina { padding-top: 32px; }
+}
+
+/* ---------- Acessibilidade ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .orbe { animation: none; }
+    .categoria summary::after { transition: none; }
+}
+
+/* Se o navegador não suporta backdrop-filter, deixa o vidro mais opaco para manter a leitura */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass3d { background: rgba(23, 60, 101, .85); }
+}
