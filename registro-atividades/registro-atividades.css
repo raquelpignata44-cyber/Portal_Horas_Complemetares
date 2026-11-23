@@ -1,0 +1,210 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #dce8f7,  #cbd9f2, #e8e2f7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 22px;
+    box-shadow: 0 15px 40px rgba(45, 52, 90, 0.15);
+}
+
+.cabecalho {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.cabecalho h1 {
+    color: #ffffff;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.cabecalho p {
+    color: #dcecf8;
+    font-size: 15px;
+}
+
+#formAtividade {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    flex: 1;
+    min-width: 0;
+}
+
+.campo label {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    border-color: #8ed8ff;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(142, 216, 255, 0.15);
+}
+
+.campo textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.campo select option {
+    color: #263b50;
+    background: #ffffff;
+}
+
+.grupo-campos {
+    display: flex;
+    gap: 20px;
+}
+
+.grupo-datas {
+    align-items: flex-start;
+}
+
+.campo-arquivo input {
+    padding: 10px;
+}
+
+.campo-arquivo input::file-selector-button {
+    padding: 9px 13px;
+    margin-right: 12px;
+    border: none;
+    border-radius: 7px;
+    background: #dceeff;
+    color: #234c72;
+    cursor: pointer;
+}
+
+#formAtividade button {
+    align-self: flex-end;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(120deg, #658edb, #8b78d6);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+#formAtividade button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(20, 35, 90, 0.25);
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 20px 12px;
+        align-items: flex-start;
+    }
+
+    .container {
+        padding: 25px 18px;
+    }
+
+    .grupo-campos {
+        flex-direction: column;
+    }
+
+    #formAtividade button {
+        width: 100%;
+    }
+}
+   
+.glass3d {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 22px;
+
+    --filter-glass3d: blur(32px) brightness(0.95) saturate(1.8);
+    --color-glass3d: rgba(70, 90, 130, 0.18);
+    --noise-glass3d: url("https://www.transparenttextures.com/patterns/egg-shell.png");
+
+    box-shadow:
+        0 8px 30px rgba(40, 50, 90, 0.15);
+}
+
+.glass3d::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: -1;
+
+    -webkit-backdrop-filter: var(--filter-glass3d);
+    backdrop-filter: var(--filter-glass3d);
+
+    background-color: var(--color-glass3d);
+    background-image: var(--noise-glass3d);
+    background-size: 100px;
+    background-repeat: repeat;
+}
+
+.glass3d::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+
+    box-shadow:
+        inset 2px 2px 1px -3px rgba(255, 255, 255, 0.8),
+        inset 4px 4px 2px -6px rgba(255, 255, 255, 0.3),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.glass3d > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+
